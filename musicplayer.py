@@ -11,7 +11,7 @@ root.title('DataFlair Python MP3 Music player App ')
 #initialize mixer 
 mixer.init()
 #create the listbox to contain songs
-songs_list=Listbox(root,selectmode=SINGLE,bg="black",fg="white",font=('arial',15),height=12,width=47,selectbackground="gray",selectforeground="black")
+songs_list=Listbox(root,selectmode=SINGLE,bg="black",fg="white",font=('arial',15),height=12,width=53,selectbackground="gray",selectforeground="black")
 songs_list.grid(columnspan=9)
 
 #add many songs to the playlist of python mp3 player
@@ -20,8 +20,8 @@ def addsongs():
     temp_song=filedialog.askopenfilenames(initialdir="Music/",title="Choose a song", filetypes=(("mp3 Files","*.mp3"),))
     ##loop through every item in the list to insert in the listbox
     for s in temp_song:
-        s=s.replace("/Users/mhmalekian/Documents/Music/","")
-    songs_list.insert(END,s)
+        #s=s.replace("/Users/mhmalekian/Documents/Music/","")
+        songs_list.insert(END,s)
      
 def deletesong():
     curr_song=songs_list.curselection()
@@ -108,7 +108,7 @@ def directorychooser():
 
 
 #Directory Chooser
-choose_but=Button(root,text="Choose Directory",width =7,command=directorychooser)
+choose_but=Button(root,text="Choose Directory",width =13,command=directorychooser)
 choose_but['font']=defined_font
 choose_but.grid(row=1,column=0)
 
