@@ -11,8 +11,17 @@ root.title('MHM Python MP3 Music player App ')
 #initialize mhmmixer 
 mixer.init()
 #create ListBox for mp3 List
-songs_list=Listbox(root,selectmode=SINGLE,bg="black",fg="white",font=('arial',15),height=12,width=53,selectbackground="gray",selectforeground="black")
+songs_list=Listbox(root,selectmode=SINGLE,bg="white",fg="blue",font=('arial',15),height=20,width=53,selectbackground="gray",selectforeground="aqua")
 songs_list.grid(columnspan=9)
+
+
+def onselect(evt):
+    # Note here that Tkinter passes an event object to onselect()
+    w = evt.widget
+    index = int(w.curselection()[0])
+    song = w.get(index)
+    mixer.music.load(song)
+    mixer.music.play()
 
 #add many songs to the playlist of python mp3 player
 def addsongs():
@@ -107,6 +116,8 @@ def directorychooser():
     mixer.time.delay(2000)
 
 
+#Define ListBox Event
+songs_list.bind('<<ListboxSelect>>', onselect)
 #Directory Chooser
 choose_but=Button(root,text="Choose Directory",width =13,command=directorychooser)
 choose_but['font']=defined_font
