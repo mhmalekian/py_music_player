@@ -5,12 +5,12 @@ import tkinter.font as font
 from tkinter import filedialog
 import os
 
-#creating the root window 
+#creating window 
 root=Tk()
-root.title('DataFlair Python MP3 Music player App ')
-#initialize mixer 
+root.title('MHM Python MP3 Music player App ')
+#initialize mhmmixer 
 mixer.init()
-#create the listbox to contain songs
+#create ListBox for mp3 List
 songs_list=Listbox(root,selectmode=SINGLE,bg="black",fg="white",font=('arial',15),height=12,width=53,selectbackground="gray",selectforeground="black")
 songs_list.grid(columnspan=9)
 
