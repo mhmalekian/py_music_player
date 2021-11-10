@@ -75,6 +75,8 @@ def Previous():
     previous_one=songs_list.curselection()
     #to get the previous song index
     previous_one=previous_one[0]-1
+    if previous_one < 0 :
+        previous_one = songs_list.size() - 1
     #to get the previous song
     temp2=songs_list.get(previous_one)
     #temp2=f'/Users/mhmalekian/Documents/Music/'
