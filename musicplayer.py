@@ -1,4 +1,5 @@
 #importing libraries 
+import pygame
 from pygame import mixer
 from tkinter import *
 import tkinter.font as font
@@ -7,13 +8,20 @@ import os
 
 #creating window 
 root=Tk()
-root.title('MHM Python MP3 Music player App ')
+root.title('MHM Python MP3 Music Player App ')
 #initialize mhmmixer 
 mixer.init()
 #create ListBox for mp3 List
 songs_list=Listbox(root,selectmode=SINGLE,bg="white",fg="blue",font=('arial',15),height=20,width=53,selectbackground="gray",selectforeground="aqua")
 songs_list.grid(columnspan=9)
+MUSIC_END = pygame.USEREVENT+1
+pygame.init()
 
+def check_event():
+    for event in pygame.event.get():
+        if event.type == MUSIC_END:
+            Next() # In your case, run self.__queue_song() and self.__set_new_selection()
+    root.after(100,check_event) 
 
 def onselect(evt):
     # Note here that Tkinter passes an event object to onselect()
@@ -21,7 +29,9 @@ def onselect(evt):
     index = int(w.curselection()[0])
     song = w.get(index)
     mixer.music.load(song)
+    mixer.music.set_endevent(MUSIC_END)
     mixer.music.play()
+    check_event()
 
 #add many songs to the playlist of python mp3 player
 def addsongs():
@@ -41,7 +51,9 @@ def Play():
     song=songs_list.get(ACTIVE)
     #song=f'/Users/mhmalekian/Documents/Music/{song}'
     mixer.music.load(song)
+    mixer.music.set_endevent(MUSIC_END)
     mixer.music.play()
+    check_event()
 
 #to pause the song 
 def Pause():
@@ -67,12 +79,14 @@ def Previous():
     temp2=songs_list.get(previous_one)
     #temp2=f'/Users/mhmalekian/Documents/Music/'
     mixer.music.load(temp2)
+    mixer.music.set_endevent(MUSIC_END)
     mixer.music.play()
     songs_list.selection_clear(0,END)
     #activate new song
     songs_list.activate(previous_one)
     #set the next song
     songs_list.selection_set(previous_one)
+    check_event()
 
 def Next():
     #to get the selected song index
@@ -83,12 +97,15 @@ def Next():
     temp=songs_list.get(next_one)
     #        temp=f'C:/Users/DataFlair/python-mp3-music-player/{temp}'
     mixer.music.load(temp)
+    mixer.music.set_endevent(MUSIC_END)
     mixer.music.play()
+    
     songs_list.selection_clear(0,END)
     #activate newsong
     songs_list.activate(next_one)
      #set the next song
     songs_list.selection_set(next_one)
+    check_event()
 
 
 
@@ -111,8 +128,10 @@ def directorychooser():
  
     mixer.init()
     mixer.music.load(directory +'/'+ listofsongs[0])
+    mixer.music.set_endevent(MUSIC_END)
     mixer.music.play()
- 
+    check_event()
+    
     mixer.time.delay(2000)
 
 
@@ -161,7 +180,7 @@ my_menu.add_cascade(label="Menu",menu=add_song_menu)
 add_song_menu.add_command(label="Add songs",command=addsongs)
 add_song_menu.add_command(label="Delete song",command=deletesong)
 
-
 mainloop()
+
 
 
