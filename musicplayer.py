@@ -93,6 +93,8 @@ def Next():
     next_one=songs_list.curselection()
     #to get the next song index
     next_one=next_one[0]+1
+    if next_one >= songs_list.size() : 
+        next_one = 0
     #to get the next song 
     temp=songs_list.get(next_one)
     #        temp=f'C:/Users/DataFlair/python-mp3-music-player/{temp}'
